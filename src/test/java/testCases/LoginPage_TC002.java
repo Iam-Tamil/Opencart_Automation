@@ -1,6 +1,6 @@
 package testCases;
 
-import org.testng.Assert;
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
@@ -35,28 +35,32 @@ public class LoginPage_TC002 extends CommonMethods{
 			submit(loginpage.getLoginBtn());
 			
 			try {
+				
+				String expectedText = "Warning: No match for E-Mail Address and/or Password.";
+				
 				String actualText = element(Locators.xpath, 
 						"//div[text()=' Warning: No match for E-Mail Address and/or Password.']").getText();
-				String expectedText = "Warning: No match for E-Mail Address and/or Password.";
 				
 				if(expectedText.equals(actualText)) {
 					ExtendReport.testResult("pass", "Test has been completed successfully");
 				} else {
 					ExtendReport.testResult("fail", "Test has been failed");
 				}
-			} catch (Exception e) {
+			} catch (NoSuchElementException e) {
+				
 				String expectedTitle = "My Account";
 				
 				String actualTitle = getPageTitle();
 				
 				if(expectedTitle.equals(actualTitle)) {
 					ExtendReport.testResult("pass", "Test has been completed successfully");
+					submit(loginpage.getMyAccount());
+					submit(loginpage.getLogout());
 				} else {
 					ExtendReport.testResult("fail", "Test has been failed");
 				} 
-				submit(loginpage.getMyAccount());
-				submit(loginpage.getLogout());
-			}
+				
+			} 
 			
 	}
 
