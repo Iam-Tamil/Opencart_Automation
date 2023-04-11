@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NoSuchFrameException;
@@ -133,6 +134,11 @@ public class CommonMethods extends PageInitialize {
 	}
 
 	public static void sendText(WebElement element, String value) {
+		waitForVisibility(element);
+		element.sendKeys(value);
+	}
+	
+	public static void sendText(WebElement element, String value, Keys keys) {
 		waitForVisibility(element);
 		element.sendKeys(value);
 	}
